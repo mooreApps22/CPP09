@@ -6,7 +6,7 @@ PURPLE = \033[0;35m
 CYAN = \033[0;36m
 NORMAL = \033[0m
 
-NAME = bitcoin 
+NAME = btc
 CPP = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98 -Wshadow -g3
 
