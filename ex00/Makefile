@@ -11,10 +11,11 @@ CPP = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98 -Wshadow -g3
 
 INC_DIR = ./includes
-HEADERS = $(INC_DIR)/xxx.hpp
+HEADERS = $(INC_DIR)/data.hpp
 			
 SRC_DIR = ./sources
-SRCS = $(SRC_DIR)/main.cpp
+SRCS = $(SRC_DIR)/main.cpp \
+	$(SRC_DIR)/btc.cpp
 			
 OBJ_DIR = ./obj
 OBJS = $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
@@ -63,6 +64,6 @@ colors:
 	@echo "${CYAN}xxxx...${NORMAL}"
 
 valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) input.txt
 
 .PHONY: all clean fclean re

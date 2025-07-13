@@ -67,3 +67,15 @@ Exercise 02: PmergeMe
 	Ex02: Deque and list
 		Ford-Johnson involves splitting sequences into pairs and doing insert+mergeo(linked-lists are ideal for inserting operations)
 		Deque has fast insertion at both ends and can serve as a good sequence container
+
+
+Exercise 00: Bitcoin Exchange
+	You have to create a program which outputs bitcoin price by date
+	Must use a .csv file (bitcoin price over time, the file is provided)
+	The program takes as an argument a second input.txt file, storing prices/dates to evaluate
+	File format "data | value"
+	Valid date will be YYYY-MM-DD
+	Valid value must be either a float or unsigned integer, between 0 and 1000
+	Ex00: map, dates are natureally orders and maps have keys
+		allows lower_bound / upper_bound search to find nearest past date
+		efficient lookups (0(log n))

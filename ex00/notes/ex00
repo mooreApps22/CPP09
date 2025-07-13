@@ -1,0 +1,49 @@
+
+Exercise 00: Bitcoin Exchange
+	You have to create a program which outputs bitcoin price by date
+	Must use a .csv file (bitcoin price over time, the file is provided)
+	The program takes as an argument a second input.txt file, storing prices/dates to evaluate
+	File format "date | value"
+	Valid date will be YYYY-MM-DD
+	Valid value must be either a float or unsigned integer, between 0 and 1000
+
+	Ex00: map, dates are natureally orders and maps have keys
+		allows lower_bound / upper_bound search to find nearest past date
+		efficient lookups (0(log n))
+
+MAP
+	std::map - an associative container
+		- stores elements formed by a combo of a KEY VALUE and a MAPPED VALUE, following a specific order
+		- keys are used to sort and identify the elms
+		- mapped values are stored associated content
+		- keys and mapped values(values) do not have to be the same type
+		- std::map::value_type is the member that groups the pair 
+			typedef pair<const Key, T> value_type;
+		- the name of the map, the bracket operator and the key are how you refer to the mapped value
+			mapName[keyName] = mapValue;
+		- binary search tress
+			left subtree < parent node < right subtree
+		- unique keys
+
+SUBJECT NOTES
+
+	input file w/ .txt database	
+	used the date in each line of the .txt file as a key in the map and multiply that by the value in the line 	
+
+	Parsing rules
+		validate "date | value" format
+		validate date as being in the YYYY-MM-DD format
+		validate value as a float or a positive integer, between 0 or 1000
+		if the date in the .txt file is not in the .csv file use the closest lower date
+
+	Output messages:
+		Errors Messages:
+			Start with "Error: " 
+			cound not open file.
+			not a positve number
+			bad input => 2001-42-42 (MM is not between 1 and 12, DD is not between 1 and 31)
+			too large a number (has to between 1 and 1000)
+		Valid Output
+			2011-01-03 => 3 = 0.9
+			2011-01-09 => 1 = 0.32
+
