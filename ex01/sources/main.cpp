@@ -14,36 +14,26 @@ bool	isValidPush(char c)
 	return (c >= '0' && c <= '9');
 }
 
-bool	isArithmeticOperator(char c)
+bool	isValidSymbol(const std::string& c)
 {
-	return (c == '+' || c == '-' || c == '*' || c == '/');
+	return (c == "+" || c == "-" || c == "*" || c == "/");
 }
 
-int	runCalculation(int result, int num, char symbol)
+int	calculate(int x, int y, const std::string& symbol)
 {
-	switch (symbol)
+	if (symbol == "+")
+		return x + y;
+	if (symbol == "-")
+		return x - y;
+	if (symbol == "*")
+		return x * y;
+	if (symbol == "/")
 	{
-		case '+':
-			return result + num;
-		case '-':
-			return result - num;
-		case '*':
-			return result * num;
-		case '/':
-		{
-			if (num == 0)
-			{
-				std::cerr << "Error " <<  symbol << std::endl;
-				return (0);
-			}
-			return result / num;
-		}
-		default:
-		{
-			std::cerr << "Error " <<  symbol << std::endl;
-			return (0);
-		}
+		if (y == 0)
+			throw std::runtime_error("Can't divide by 0");
+		return x / y;
 	}
+	throw std::runtime_error("Unknown symbol");
 }
 
 int	main(int argc, char** argv)
@@ -53,39 +43,36 @@ int	main(int argc, char** argv)
 		return (1);
 	}
 
-	std::string		input(argv[1]);
-	Stack			numbers;
-	int				result = 0;
+	std::istringstream		stream(argv[1]);
+	std::string				token;
+	Stack					numbers;
 
-	for (It it = input.begin(); it != input.end(); ++it)
+	try
 	{
-		if (isValidPush(*it))
+		while (stream >> token)
 		{
-			int num = *it - '0';
-			numbers.push(num);
-		// 	std::cout << "Load: " << *it << std::endl;
-		}
-		else if (isArithmeticOperator(*it))
-		{
-			while (!numbers.empty())
-			{	
-				int num = numbers.top();
-
-			//	std::cout << "Fire: " << num << std::endl;
-				result = runCalculation(result, num, *it);
+			if (token.size() == 1 && std::isdigit(token[0]))
+				numbers.push(token[0] - '0');
+			else if (isValidSymbol(token))
+			{
+				if (numbers.size() < 2)
+					throw std::runtime_error("not enough numbers");
+				int x = numbers.top();
 				numbers.pop();
+				int y = numbers.top();
+				numbers.pop();
+				int result = calculate(x, y, token);
+				numbers.push(result);
 			}
 		}
-		else if ( *it == ' ')
-			continue ;
-		else
-		{
-			std::cerr << "Error" << std::endl;
-			break ;
-		}			
+
+		std::cout << numbers.top() << std::endl;
+
 	}
-
-	std::cout << result << std::endl;
-
+	catch (const std::exception& e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+		return (2);
+	}
 	return (0);
 }
