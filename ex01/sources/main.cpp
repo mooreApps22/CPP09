@@ -57,13 +57,18 @@ int	main(int argc, char** argv)
 			{
 				if (numbers.size() < 2)
 					throw std::runtime_error("not enough numbers");
-				int x = numbers.top();
-				numbers.pop();
-				int y = numbers.top();
-				numbers.pop();
-				int result = calculate(x, y, token);
-				numbers.push(result);
+				while (!numbers.empty() && numbers.size() >= 2)
+				{
+					int y = numbers.top();
+					numbers.pop();
+					int x = numbers.top();
+					numbers.pop();
+					int result = calculate(x, y, token);
+					numbers.push(result);
+				}
 			}
+			else
+				throw std::runtime_error("invalid token: " + token);
 		}
 
 		std::cout << numbers.top() << std::endl;

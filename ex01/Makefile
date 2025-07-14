@@ -63,6 +63,9 @@ colors:
 	@echo "${CYAN}xxxx...${NORMAL}"
 
 valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) input.txt
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "1 1 1 +"
+
+gdb:
+	gdb -args ./$(NAME) "1 1 1 +"
 
 .PHONY: all clean fclean re
