@@ -1,0 +1,15 @@
+
+
+Exercise 02: PmergeMe
+	program must be able to use a positive integer sequence as an arguement
+	program must use merge-insert sort algorithm to sort the positive integer sequence
+		You need to use the Ford-Johnson algorithm (Art of Computer Programming, Vol.3. Merge Insertion, Page 184)
+	display error message
+	must be able to use at least 3000 different integers
+	You have to use two different container not yet used
+
+	Ex02: Deque and list
+		Ford-Johnson involves splitting sequences into pairs and doing insert+mergeo(linked-lists are ideal for inserting operations)
+		Deque has fast insertion at both ends and can serve as a good sequence container
+
+
