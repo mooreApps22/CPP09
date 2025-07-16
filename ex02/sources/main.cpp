@@ -4,44 +4,69 @@
 #include <sstream>
 #include "data.hpp" 
 
-
-void	mergeInsertionSort(List& numbers) // numbers is the main chain
+void	mergeInsertionSort(List& numbers)
 {
-	Deque	deck;
-	ListIt	it = numbers.begin();	
+	if (numbers.size() <= 1)
+		return ;
+	
+	List	mainChain;
+	Deque	pend;
+	ListIt	it = numbers.begin();
 
+	// Compare pairs
 	while (it != numbers.end())
 	{
-		ListIt	first = *it;
+		int first = *it;
 
 		++it;
 		if (it != numbers.end())
 		{
-			ListIt	second = *it;
+			int second = *it;
 
-			++it;	
-			if (first > second)
+			++it;
+			if (first > second) 
 			{
-				numbers.push_back(first); // does this copy or move first?
-				deck.push_back(second);
+				mainChain.push_back(first);
+				pend.push_back(second);
 			}
 			else
 			{
-				numbers.push_back(second); // does this copy or move first?
-				deck.push_back(first);
+				mainChain.push_back(second);
+				pend.push_back(first);
 			}
 		}
 		else
 		{
-			numbers.push_back(first);
+			mainChain.push_back(first);
 		}
+
 	}
+	//  Recursion Alert!!
+	mergeInsertionSort(mainChain);
+	// Binary insert each elm into sorted mainChain
+	for (DequeIt pIt = pend.begin(); pIt != pend.end(); ++pIt)
+	{
+		int value = *pIt;
 
-	// Recursion  Alert!
-	mergeInsertionSort(numbers);
+		ListIt	low = mainChain.begin();
+		ListIt	high = mainChain.end();
+		// Binary search of insert point
+		while (low != high)
+		{
+			ListIt	mid = low;
 
-	
+			std::advance(mid, std::distance(low, high) / 2);
+			if (*mid < value)
+				low = ++mid;
+			else
+				high = mid;
+		}
+		mainChain.insert(low, value);
+	}
+	// replace O.G.
+	numbers = mainChain;
 }
+
 
 int	main(int argc, char **argv)
 {
