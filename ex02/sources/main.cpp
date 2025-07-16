@@ -2,6 +2,7 @@
 #include <deque>
 #include <list>
 #include <sstream>
+#include <iomanip>
 #include "data.hpp" 
 
 void	mergeInsertionSort(List& numbers)
@@ -43,14 +44,18 @@ void	mergeInsertionSort(List& numbers)
 	}
 	//  Recursion Alert!!
 	mergeInsertionSort(mainChain);
+
 	// Binary insert each elm into sorted mainChain
 	for (DequeIt pIt = pend.begin(); pIt != pend.end(); ++pIt)
 	{
 		int value = *pIt;
 
-		ListIt	low = mainChain.begin();
-		ListIt	high = mainChain.end();
+//		ListIt	low = mainChain.begin();
+		ListIt	low = std::lower_bound(mainChain.begin(), mainChain.end(), value);
+//		ListIt	high = mainChain.end();
+		mainChain.insert(low, value);
 		// Binary search of insert point
+		/*
 		while (low != high)
 		{
 			ListIt	mid = low;
@@ -62,6 +67,7 @@ void	mergeInsertionSort(List& numbers)
 				high = mid;
 		}
 		mainChain.insert(low, value);
+		*/
 	}
 	// replace O.G.
 	numbers = mainChain;
@@ -79,14 +85,19 @@ int	main(int argc, char **argv)
 	List	numbers;
 	
 	numbers = fillList(argv);
+	std::cout << "List Size: " << numbers.size() << std::endl;
 
 	std::cout << "Before sorting: " << std::endl;
 	std::cout << numbers;
 	
+	double start = getTimeMicroseconds();
 	mergeInsertionSort(numbers); // Ford Johnson Sort Algorithm
+	double end = getTimeMicroseconds();
 
 	std::cout << "After sorting: " << std::endl;
 	std::cout << numbers;
+	std::cout << std::fixed << std::setprecision(5);
+	printTime("std::list", end - start, numbers.size());
 
 	return (0);
 }

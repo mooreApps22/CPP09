@@ -3,9 +3,27 @@
 #include <list>
 #include <sstream>
 #include "data.hpp" 
+#include <sys/time.h>
+#include <iomanip>
+
+double	getTimeMicroseconds()
+{
+	struct timeval t;
+
+	gettimeofday(&t, NULL);
+	return t.tv_sec * 1e6 + t.tv_usec;
+}
+
+void	printTime(const std::string& name, double usec, size_t size)
+{
+	std::cout << std::fixed << std::setprecision(5);
+	std::cout << "Time to process a range of " << size << " elements with " << name << " : " << (usec / 1000.0) << " us" << std::endl;
+}
+
 
 std::ostream&	operator<<(std::ostream& cout, List numbers)
 {
+
 	for (ListIt it = numbers.begin(); it != numbers.end(); it++)
 		std::cout << *it << " ";
 	std::cout << std::endl;
