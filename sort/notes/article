@@ -1,0 +1,9 @@
+MergeInsertion
+
+	Pairwise comparison:	First, pairs of elements are compared
+	Recursion:				Second, the large elements are sorted recursively
+	Insertion:				Third, the smaller elements are inserted into the larger half using binary insertion 
+
+	There are N elements
+
+https://arxiv.org/pdf/1905.09656	

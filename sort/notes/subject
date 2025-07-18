@@ -1,0 +1,82 @@
+
+
+
+42 London - CPP09 - Notes for entire module
+
+
+	It is mandatory to use std::containers to perform each exercise in this module.
+
+	Once a container is used you cannot use it for the rest of the module.
+		- You have to use two containers in ex02:w
+
+
+Sequence Containers 
+	Vector
+	Deque
+	List
+
+Associative Containers
+	Set
+	Multiset
+	Map
+	Multimap
+
+Container Adaptors
+	Stack
+	Queue
+
+
+Exercise 00: Bitcoin Exchange
+	You have to create a program which outputs bitcoin price by date
+	Must use a .csv file (bitcoin price over time, the file is provided)
+	The program takes as an argument a second input.txt file, storing prices/dates to evaluate
+	File format "data | value"
+	Valid date will be YYYY-MM-DD
+	Valid value must be either a float or unsigned integer, between 0 and 1000
+	
+	BEST GUESS: map
+
+Exercise 01: Reverse Polish Notation
+	The program takes an "inverted Polish mathematical expression" as an argument
+	The numbers used in this operation and passed as arguments will always be less than 10
+		the calcuation itself but also the result do not take into account this rule
+	the correct result is output to standard output
+	error messages should be displayed
+	operation tokesn are "+-/*"
+	You don't need to handle brackets or decimal numbers
+
+	BEST GUESS: deque
+
+Exercise 02: PmergeMe
+	program must be able to use a positive integer sequence as an arguement
+	program must use merge-insert sort algorithm to sort the positive integer sequence
+		You need to use the Ford-Johnson algorithm (Art of Computer Programming, Vol.3. Merge Insertion, Page 184)
+	display error message
+	must be able to use at least 3000 different integers
+	You have to use two different container not yet used
+
+	BEST GUESS: Mulimap and vector
+
+	----
+
+	Ex00: map, dates are natureally orders and maps have keys
+		allows lower_bound / upper_bound search to find nearest past date
+		efficient lookups (0(log n))
+
+	Ex01: stack, need LIFO behavior to pop operands
+		operation have to be parsed in linear order
+		(have access to underlying through vector)
+
+	Ex02: Deque and list
+		Ford-Johnson involves splitting sequences into pairs and doing insert+mergeo(linked-lists are ideal for inserting operations)
+		Deque has fast insertion at both ends and can serve as a good sequence container
+
+Exercise 02: PmergeMe
+	program must be able to use a positive integer sequence as an arguement
+	program must use merge-insert sort algorithm to sort the positive integer sequence
+		You need to use the Ford-Johnson algorithm (Art of Computer Programming, Vol.3. Merge Insertion, Page 184)
+	display error message
+	must be able to use at least 3000 different integers
+	You have to use two different container not yet used
+
+
