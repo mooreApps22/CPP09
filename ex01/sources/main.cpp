@@ -4,9 +4,10 @@
 #include <sstream>
 #include <string>
 #include <cstdlib>
+#include <climits>
 #include "data.hpp"
 
-typedef std::stack<int, std::vector<int> >	Stack;
+typedef std::stack<long, std::vector<long> >	Stack;
 typedef std::string::iterator				It;
 
 bool	isValidPush(char c)
@@ -19,8 +20,10 @@ bool	isValidSymbol(const std::string& c)
 	return (c == "+" || c == "-" || c == "*" || c == "/");
 }
 
-int	calculate(int x, int y, const std::string& symbol)
+long	calculate(long x, long y, const std::string& symbol)
 {
+	if (x > LONG_MAX - y)
+		throw std::runtime_error("Result exceeds valid upper limit");
 	if (symbol == "+")
 		return x + y;
 	if (symbol == "-")
@@ -59,11 +62,11 @@ int	main(int argc, char** argv)
 					throw std::runtime_error("not enough numbers");
 				while (!numbers.empty() && numbers.size() >= 2)
 				{
-					int y = numbers.top();
+					long y = numbers.top();
 					numbers.pop();
-					int x = numbers.top();
+					long x = numbers.top();
 					numbers.pop();
-					int result = calculate(x, y, token);
+					long result = calculate(x, y, token);
 					numbers.push(result);
 				}
 			}
