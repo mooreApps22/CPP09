@@ -16,8 +16,9 @@ double	getTimeMicroseconds()
 
 void	printTime(const std::string& name, double usec, size_t size)
 {
+	// 3000 log (3000) − 0.915(3000) = 7686.36376416
 	std::cout << std::fixed << std::setprecision(5);
-	std::cout << "Time to process a range of " << size << " elements with " << name << " : " << (usec / 1000.0) << " us" << std::endl;
+	std::cout << "Time to process a range of " << size << " elements with " << name << " : " << (usec) << " us" << std::endl;
 }
 
 
@@ -38,9 +39,9 @@ std::ostream&	operator<<(std::ostream& cout, Deque numbers)
 	return cout;
 }
 
-List	fillList(char **argv)
+Deque	fillDeque(char **argv)
 {
-	List	numbers;	
+	Deque	numbers;	
 	int		integer;
 
 	for (int i = 1; argv[i]; i++)

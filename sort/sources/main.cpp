@@ -4,12 +4,7 @@
 #include <sstream>
 #include <iomanip>
 #include "data.hpp" 
-
-void	mergeInsertionSort(List& numbers)
-{
-	
-}
-
+#include "MergeInsertionSorter.hpp" 
 
 int	main(int argc, char **argv)
 {
@@ -19,22 +14,25 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	List	numbers;
+	Deque	input;
 	
-	numbers = fillList(argv);
-	std::cout << "List Size: " << numbers.size() << std::endl;
+	input = fillDeque(argv);
+	std::cout << "Deque Size: " << input.size() << std::endl;
+
+	MergeInsertionSorter	sorter;
+
+	sorter.loadInput(input);
 
 	std::cout << "Before sorting: " << std::endl;
-	std::cout << numbers;
+//	std::cout << input;
 	
 	double start = getTimeMicroseconds();
-	mergeInsertionSort(numbers); // Ford Johnson Sort Algorithm
+	sorter.sort(); // Ford Johnson Algorithm
 	double end = getTimeMicroseconds();
 
 	std::cout << "After sorting: " << std::endl;
-	std::cout << numbers;
+	std::cout << sorter.getDeque();
 	std::cout << std::fixed << std::setprecision(5);
-	printTime("std::list", end - start, numbers.size());
-
+	printTime("std::deque", end - start, sorter.getDeque().size());
 	return (0);
 }

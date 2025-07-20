@@ -11,11 +11,13 @@ CPP = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98 -Wshadow -g3
 
 INC_DIR = ./includes
-HEADERS = $(INC_DIR)/data.hpp
+HEADERS = $(INC_DIR)/data.hpp \
+	$(INC_DIR)/MergeInsertionSorter.hpp
 			
 SRC_DIR = ./sources
 SRCS = $(SRC_DIR)/main.cpp \
-		$(SRC_DIR)/data.cpp
+		$(SRC_DIR)/data.cpp \
+		$(SRC_DIR)/MergeInsertionSorter.cpp
 			
 OBJ_DIR = ./obj
 OBJS = $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
