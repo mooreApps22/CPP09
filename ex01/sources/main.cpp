@@ -8,7 +8,7 @@
 #include "data.hpp"
 
 typedef std::stack<long, std::vector<long> >	Stack;
-typedef std::string::iterator				It;
+typedef std::string::iterator					It;
 
 bool	isValidPush(char c)
 {

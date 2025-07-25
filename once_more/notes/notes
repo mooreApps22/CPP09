@@ -1,0 +1,9 @@
+EX02 Notes
+
+Constraints
+	must be called PmergeMe
+	pass positive int sequence as progrm-argument
+	must use merge-insert sort
+	have error messages
+
+

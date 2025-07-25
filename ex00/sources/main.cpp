@@ -36,7 +36,6 @@ Map	validateBitcoinDatabase(std::string database)
 
 		std::getline(lineStream, date, ',');
 		std::getline(lineStream, rate); // default delim is \n
-		// maybe need to trim here
 		btc[date] = std::atof(rate.c_str());
 	}
 	if (btc.empty())
@@ -58,5 +57,4 @@ int	main(int argc, char **argv)
 		return (1);
 	outputExchangeRates(inputFile, btc);
 	return (0);
-	
 }

@@ -67,11 +67,11 @@ void	outputExchangeRates(std::string	filename, Map btc)
 		std::stringstream	valueStream(valueStr);
 
 		if (!(valueStream >> valueDouble) || valueDouble < 0) {
-			std::cerr << "Error: not a positive number." << std::endl;
+			std::cerr << "Error: not a positive number. Must be between 0 to 1000." << std::endl;
 			continue ;
 		}
 		if (valueDouble > 1000) {
-			std::cerr << "Error: too large a number." << std::endl;
+			std::cerr << "Error: too large a number. Must be between 0 to 1000." << std::endl;
 			continue ;
 		}
 
