@@ -15,7 +15,8 @@ HEADERS = $(INC_DIR)/data.hpp
 			
 SRC_DIR = ./sources
 SRCS = $(SRC_DIR)/main.cpp \
-		$(SRC_DIR)/data.cpp
+		$(SRC_DIR)/sortMergeInsertVector.cpp \
+		$(SRC_DIR)/sortMergeInsertList.cpp
 			
 OBJ_DIR = ./obj
 OBJS = $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
@@ -67,6 +68,6 @@ valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "1 1 1 +"
 
 gdb:
-	gdb -args ./$(NAME) "1 1 1 +"
+	gdb -args ./$(NAME) "231 21 1 "
 
 .PHONY: all clean fclean re

@@ -1,103 +1,61 @@
 #include <iostream>
-#include <deque>
+#include <vector>
 #include <list>
 #include <sstream>
 #include <iomanip>
+#include <sys/time.h>
 #include "data.hpp" 
 
-void	mergeInsertionSort(List& numbers)
+bool	validateArgCount(int argc)
 {
-	if (numbers.size() <= 1)
-		return ;
-	
-	List	mainChain;
-	Deque	pend;
-	ListIt	it = numbers.begin();
-
-	// Compare pairs
-	while (it != numbers.end())
+	if (argc <= 2)	
 	{
-		int first = *it;
-
-		++it;
-		if (it != numbers.end())
-		{
-			int second = *it;
-
-			++it;
-			if (first > second) 
-			{
-				mainChain.push_back(first);
-				pend.push_back(second);
-			}
-			else
-			{
-				mainChain.push_back(second);
-				pend.push_back(first);
-			}
-		}
-		else
-		{
-			mainChain.push_back(first);
-		}
-
+		std::cerr << "Usage: ./PmergeMe 233 21 12 ... " << std::endl;
+		return (false);
 	}
-	//  Recursion Alert!!
-	mergeInsertionSort(mainChain);
-
-	// Binary insert each elm into sorted mainChain
-	for (DequeIt pIt = pend.begin(); pIt != pend.end(); ++pIt)
-	{
-		int value = *pIt;
-
-//		ListIt	low = mainChain.begin();
-		ListIt	low = std::lower_bound(mainChain.begin(), mainChain.end(), value);
-//		ListIt	high = mainChain.end();
-		mainChain.insert(low, value);
-		// Binary search of insert point
-		/*
-		while (low != high)
-		{
-			ListIt	mid = low;
-
-			std::advance(mid, std::distance(low, high) / 2);
-			if (*mid < value)
-				low = ++mid;
-			else
-				high = mid;
-		}
-		mainChain.insert(low, value);
-		*/
-	}
-	// replace O.G.
-	numbers = mainChain;
+	return (true);	
 }
 
-
-int	main(int argc, char **argv)
+double	getTimeInUsec(void)
 {
-	if (argc <= 1)
-	{
-		std::cout << "Usage: ./PmergeMe 1 33 44 ..." << std::endl;
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec * 1e6 + tv.tv_usec;
+}
+
+int	main(int argc, char** argv)
+{
+	if (!validateArgCount(argc))
 		return (1);
+	Vector	inputVector;
+	List	inputList;
+
+	try
+	{
+		inputVector = loadContainer<Vector>(argc, argv);
+		std::cout << "Before: ";
+		printContainer(std::cout, inputVector);
+		inputList = loadContainer<List>(argc, argv);
 	}
-
-	List	numbers;
+	catch (const std::exception& e)
+	{
+		std::cerr << "Exception Caught: " << e.what() << std::endl;
+		return (2);
+	}
 	
-	numbers = fillList(argv);
-	std::cout << "List Size: " << numbers.size() << std::endl;
+	double start = getTimeInUsec();
+	Vector	sortedVector = mergeInsertSortWithVector(inputVector);
+	double end = getTimeInUsec();
 
-	std::cout << "Before sorting: " << std::endl;
-	std::cout << numbers;
-	
-	double start = getTimeMicroseconds();
-	mergeInsertionSort(numbers); // Ford Johnson Sort Algorithm
-	double end = getTimeMicroseconds();
+	std::cout << "After: ";
+	printContainer(std::cout, sortedVector);
+	std::cout << "Time to process a range of " << sortedVector.size() << " elements with std::vector : " << (end - start) << " usec" << std::endl;
 
-	std::cout << "After sorting: " << std::endl;
-	std::cout << numbers;
-	std::cout << std::fixed << std::setprecision(5);
-	printTime("std::list", end - start, numbers.size());
+	start = getTimeInUsec();
+	List	sortedList = mergeInsertSortWithList(inputList);
+	end = getTimeInUsec();
+	std::cout << "Time to process a range of " << sortedVector.size() << " elements with std::list : " << (end - start) << " usec" << std::endl;
 
 	return (0);
 }

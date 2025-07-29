@@ -35,54 +35,33 @@ Vector	mergeInsertSortWithVector(Vector& inputVector)
 	
 	Vector	mainChain;	
 
-	std::cout << "Mainchain: \t";
 	for (size_t i = 0; i < pairWises.size(); ++i)
 	{
 		mainChain.push_back(pairWises[i].second);
-		std::cout << mainChain[i] << " ";
 	}
-	std::cout << std::endl;
 	
 	Vector	pend;
 
-	std::cout << "Pend: \t\t" ;
 	for (size_t i = 0; i < pairWises.size(); ++i)
 	{
 		pend.push_back(pairWises[i].first);
-		std::cout << pend[i] << " ";
 	}
-	std::cout << std::endl;
-	if (hasOddSize)
-		std::cout << "Oddman: \t" << oddMan<< std::endl;
 	
-/*	
-	for (size_t i = 0; i < pend.size(); ++i)
-	{
-		VectorIt	it = std::lower_bound(mainChain.begin(), mainChain.end(), pend[i]);
-		mainChain.insert(it, pend[i]);
-	}
-*/
 
 	VectorSizeT	jacobsthals;
 	size_t		j0 = 0;
 	size_t		j1 = 1;
-
-//	if (pend.size() > 0)
-//		jacobsthals.push_back(j1);
 		
-	std::cout << "jN: \t\t";
 	while (true)
 	{
 		size_t	jN = j1 + 2 * j0;
 
 		if (jN >= pend.size()) 
 			break;
-		std::cout << jN << " ";
 		jacobsthals.push_back(jN);
 		j0 = j1;
 		j1 = jN;
 	}
-	std::cout << std::endl;
 
 	VectorBool	inserted(pend.size(), false);
 
@@ -111,11 +90,5 @@ Vector	mergeInsertSortWithVector(Vector& inputVector)
 		mainChain.insert(it, oddMan);
 	}
 	
-	std::cout << "MainChain: \t\t" ;
-	for (size_t i = 0; i < mainChain.size(); ++i)
-	{
-		std::cout << mainChain[i] << " ";
-	}
-	std::cout << std::endl;
 	return (mainChain);
 }
